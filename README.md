@@ -114,16 +114,20 @@ Please find some online-sourced detail around how to retrieve and deploy my solu
 ### Steps
 
 1. Clone the repository:
+
    git clone https://github.com/KingHarv/MT-Finance-TechTest.git
    cd MT-Finance-TechTest
 
 2. Authenticate into your Salesforce org:
+
    sf org login web --set-default
 
 3. Push source metadata to the org:
+
    sf project deploy start --source-dir force-app
 
 4. Run Apex tests to validate:
+
    sf apex run test --test-level RunLocalTests
 
 ---
