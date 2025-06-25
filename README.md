@@ -1,6 +1,6 @@
 # Harvey King's Submission for MT Finance's Technical Test
 
-### ** Hello MT Finance! ** 
+### **Hello MT Finance!** 
 
 First off, thank you for the opportunity, and your time, in reviewing and considering me as an applicant.
 
@@ -18,7 +18,7 @@ All components work in tandem to achieve the expected data processing for an end
 
 This hopefully demonstrates my ability to identify where certain solutions at my disposal may be better suited, or should at least be considered, based on the task and expected outcome at hand — rather than just defaulting to programmatic, declarative, or relying on pre-existing (and in some cases non-efficient methods)
 
-Solution Components Developed:
+###Solution Components Developed:
 
 2 Apex Triggers (1 Trigger per Object for Loan__c and Loan_Charge__c)
 
@@ -38,11 +38,11 @@ These expected results are with some deviation from detailed spec, which will be
 
 
 
-### Technical Task Observations & Expected/Actual Outcome Detail
+## Technical Task Observations & Expected/Actual Outcome Detail
 
 I presume it is purposeful in the requirements such that I was meant to run into obstacles which may raise questions and to prompt me to consider different implementation solutions based on the scale/business case in question (or perhaps I just entirely misunderstood)...
 
-## Original Requirement – Edge Case / Record Processing Volume Consideration
+### Original Requirement – Edge Case / Record Processing Volume Consideration
 
 Loan Term Updates & Charge Date Conflicts
 
@@ -66,7 +66,7 @@ Use a Roll-Up Summary (MAX) field to get the latest Loan Charge date per Loan. T
 Compare this against the existing Release Charge Date. If the Release Charge is not greater than the MAX value, extend it by one month and you can retain all existing Loan Charge Dates.
 
 
-## Bonus Requirement – Logical/Business Process Conflict Observed
+### Bonus Requirement – Logical/Business Process Conflict Observed
 
 Admin Fee vs. Interest Charge (Same-Day Conflict)
 
