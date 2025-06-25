@@ -26,7 +26,7 @@ This hopefully demonstrates my ability to identify where certain solutions at my
 
 **1 Flow** (Handles Bonus Requirement Function)
 
-**2 Custom Objects** 
+**2 Custom Objects** (Loan__c & Loan_Charge__c)
 
 **11 Custom Fields** (7 for Loan__c, 4 for Loan_Charge__c)
 
@@ -35,7 +35,6 @@ There are some additional components included in this repository such as Page La
 At the point of commit, I have achieved sufficient code coverage for all Apex components (Lowest Coverage = 87% for Triggers & Classes alike), carried out full-cycle manual unit tests aligning with the technical task's spec, and carried out thorough Flow debug testing against all outcome branches. Every automation source here has returned expected results consistently across the board for all methods of testing.
 
 These expected results are with some deviation from detailed spec, which will be discussed in the following section of the README.
-
 
 
 ## Technical Task Observations & Expected/Actual Outcome Detail
@@ -100,3 +99,36 @@ I hope this has been informative and that the solution provided meets your expec
 Happy to discuss further around any points or details.
 
 Thank you again, and I look forward to hearing your feedback!!!
+
+---
+
+## Deployment Instructions
+
+Please find some online-sourced detail around how to retrieve and deploy my solution to your own org.
+
+### Prerequisites
+- Salesforce CLI installed ([official guide](https://developer.salesforce.com/tools/sfdxcli))
+- A Salesforce Developer Edition org (or a scratch org/sandbox)
+- Git installed (to clone this repo)
+
+### Steps
+
+1. Clone the repository:
+   git clone https://github.com/KingHarv/MT-Finance-TechTest.git
+   cd MT-Finance-TechTest
+
+2. Authenticate into your Salesforce org:
+   sf org login web --set-default
+
+3. Push source metadata to the org:
+   sf project deploy start --source-dir force-app
+
+4. Run Apex tests to validate:
+   sf apex run test --test-level RunLocalTests
+
+---
+
+### Notes
+- You can use `sfdx force:source:deploy -p force-app` if using the legacy CLI.
+- All required metadata is included in the `force-app/main/default` directory.
+- Apex test classes are included and meet minimum coverage requirements.
