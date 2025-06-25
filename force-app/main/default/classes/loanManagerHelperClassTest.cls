@@ -98,7 +98,7 @@ public class loanManagerHelperClassTest {
         
         update l;
         Loan__c updatedLoan = [SELECT Id, Term__c, Date_Loan_Issued__c FROM Loan__c WHERE Id = :l.Id];
-        Date ExpectedDate = updatedLoan.Date_Loan_Issued__c.addmonths(75);
+        Date ExpectedDate = updatedLoan.Date_Loan_Issued__c.addmonths(55);
         
         releaseChargeLC = [SELECT ID, Charge_Type__c,Loan__c,date__c from Loan_Charge__c where loan__c =: l.id AND charge_type__c = 'Release Charge'];
         System.debug('Release Charge Date AFTER Term amendment: ' + releaseChargeLC[0].date__c);

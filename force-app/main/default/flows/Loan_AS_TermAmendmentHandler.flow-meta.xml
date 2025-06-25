@@ -58,7 +58,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Store_Old_Charge_Date</targetReference>
+            <targetReference>UpdateReleaseChargeDateWithNewDate</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -78,37 +78,56 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Store_Old_Charge_Date</name>
-        <label>Store Old Charge Date</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>PriorDateofReleaseCharge</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Query_Release_Charge_Loan_Charge.Date__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Date_with_OldDate_Term</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Update_Date_with_OldDate_Term</name>
-        <label>Update Date with OldDate+Term</label>
+        <name>UpdateReleaseChargeDateWithNewDate</name>
+        <label>UpdateReleaseChargeDateWithNewDate</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
             <assignToReference>Query_Release_Charge_Loan_Charge.Date__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>DateNTermFormula</elementReference>
+                <elementReference>UpdatedTermDateForReleaseCharge</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference>Confirm_Assignments_are_Valid</targetReference>
         </connector>
     </assignments>
+    <customErrors>
+        <name>Release_Charge_Loan_Charge_Not_Found</name>
+        <label>Release Charge Loan Charge Not Found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>An Error was encountered by the &quot;Loan_AS_TermAmendmentHandler&quot; Flow. There was a failure in the system locating a Release Charge Loan Charge. 
+If there is no Release Charge, please create one and attempt your change again.</errorMessage>
+            <fieldSelection>Term__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Term_Update_Failed</name>
+        <label>Term Update Failed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>An Error was encountered by the &quot;Loan_AS_TermAmendmentHandler&quot; Flow. There was a failure in the saving of the Release Charge Loan Charge&apos;s &quot;Charge Date&quot; Field.
+Please contact your Salesforce Admin for further assistance.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Value_Pre_Assignment_Failure</name>
+        <label>Value Pre-Assignment Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>An Error was encountered by the &quot;Loan_AS_TermAmendmentHandler&quot; Flow. There was a failure in the process which assigns custom values to the Admin Fee &amp; Release Charge Loan Charge Records.
+Please contact your Salesforce Admin for further assistance.</errorMessage>
+            <fieldSelection>Term__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
     <decisions>
         <name>Confirm_Assignments_are_Valid</name>
         <label>Confirm Assignments are Valid</label>
@@ -150,7 +169,7 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>DateNTermFormula</leftValueReference>
+                <leftValueReference>UpdatedTermDateForReleaseCharge</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <elementReference>PriorDateofReleaseCharge</elementReference>
@@ -203,7 +222,7 @@
                 <leftValueReference>Query_Release_Charge_Loan_Charge.Date__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>DateNTermFormula</elementReference>
+                    <elementReference>UpdatedTermDateForReleaseCharge</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -274,6 +293,15 @@ TODAY()
         <name>Today</name>
         <dataType>Date</dataType>
         <expression>today()</expression>
+    </formulas>
+    <formulas>
+        <name>UpdatedTermDateForReleaseCharge</name>
+        <dataType>Date</dataType>
+        <expression>DATE(
+  YEAR({!OriginalLoanIssueDate}) + FLOOR((MONTH({!OriginalLoanIssueDate}) + FLOOR({!$Record.Term__c}) - 1) / 12),
+  MOD((MONTH({!OriginalLoanIssueDate}) + FLOOR({!$Record.Term__c}) - 1), 12) + 1,
+  DAY({!OriginalLoanIssueDate})
+)</expression>
     </formulas>
     <interviewLabel>Loan_AS_TermAmendmentHandler {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Loan_AS_TermAmendmentHandler</label>
@@ -476,6 +504,16 @@ TODAY()
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <scale>0</scale>
+    </variables>
+    <variables>
+        <name>OriginalLoanIssueDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Record__Prior.Date_Loan_Issued__c</elementReference>
+        </value>
     </variables>
     <variables>
         <name>PriorDateofReleaseCharge</name>
