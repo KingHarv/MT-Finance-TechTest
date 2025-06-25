@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChargeTypeAmountsArePredefined</fullName>
+    <active>true</active>
+    <description>Select Charge Type Amounts are predefined and may not be changed.</description>
+    <errorConditionFormula>IF(
+ISPICKVAL(Charge_Type__c, &apos;Admin Fee&apos;) &amp;&amp; Amount__c != 300 ||
+ISPICKVAL(Charge_Type__c, &apos;Release Charge&apos;) &amp;&amp; Amount__c != 500
+,true,false)</errorConditionFormula>
+    <errorDisplayField>Amount__c</errorDisplayField>
+    <errorMessage>Certain Charge Type Amounts are predefined and may not be changed.
+Admin Fee and Release Charge Fee Amounts can not be modified.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CannotChangeDateOfIssue</fullName>
+    <active>true</active>
+    <description>Date of Issue for a Loan is static and may not be amended</description>
+    <errorConditionFormula>IsChanged(Date_Loan_Issued__c)</errorConditionFormula>
+    <errorDisplayField>Date_Loan_Issued__c</errorDisplayField>
+    <errorMessage>Date of Issue for a Loan is static and may not be amended.
+Any new Loan must be explicitly created with the correct Date of Issue.
+Please contact Compliance for futher assistance.</errorMessage>
+</ValidationRule>

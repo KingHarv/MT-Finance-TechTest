@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Flow</name>
+    </types>
+<types>
+    <members>Loan__c-Loan Layout</members>
+    <members>Loan_Charge__c-Loan Charge Layout</members>
+    <name>Layout</name>
+</types>
+<types>
+    <members>Loan__c.Default_Loan_Record_Type</members>
+    <members>Loan_Charge__c.Default_Loan_Charge_Record_Type</members>
+    <name>RecordType</name>
+</types>
+    <version>56.0</version>
+</Package>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LoanAmountCanNotBeNegative</fullName>
+    <active>true</active>
+    <description>Prevents the entry of Loan values under 0.</description>
+    <errorConditionFormula>If(Gross_Loan_Amount__c &lt; 0, true,false)</errorConditionFormula>
+    <errorDisplayField>Gross_Loan_Amount__c</errorDisplayField>
+    <errorMessage>A Loan must have at least some positive nominal value assigned to it.</errorMessage>
+</ValidationRule>
