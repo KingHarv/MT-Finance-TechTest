@@ -1,6 +1,6 @@
 # Harvey King's Submission for MT Finance's Technical Test
 
-### **Hello MT Finance!** 
+### Hello MT Finance! 
 
 First off, thank you for the opportunity, and your time, in reviewing and considering me as an applicant.
 
@@ -10,7 +10,7 @@ Below you will find information on the solution I designed, the context behind i
 
 I attempted to follow the request with as little excess as possible — for example, not building *any* additional Custom Fields or extending the data schema any further than originally detailed. I did this as I hoped to achieve the goal whilst staying within the originally defined scope — building out further and further can in some cases make it easier to leverage other functions to achieve the same goal. 
 
-Even though it's detailed in the spec "Feel free to leverage custom fields, custom settings, formula fields, validation rules, or other declarative features...", I wanted to see what I could do with exactly what I was given — treating the spec as an set of intentional guardrails.
+Even though it's detailed in the spec "Feel free to leverage custom fields, custom settings, formula fields, validation rules, or other declarative features...", I wanted to see what I could do with exactly what I was given — treating the spec as an set of intentional guardrails to see if I could achieve what was being asked without having to make any additional changes.
 
 Because of this, I opted to achieve the request in spec by utilizing a blend of both Delcarative and Programmatic development.
 I implemented the solution for the initial requirements via APEX and the Bonus Requirements via Flow.
