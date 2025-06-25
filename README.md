@@ -1,6 +1,6 @@
 # Harvey King's Submission for MT Finance's Technical Test
 
-** ### Hello MT Finance! ** 
+### ** Hello MT Finance! ** 
 
 First off, thank you for the opportunity, and your time, in reviewing and considering me as an applicant.
 
@@ -19,10 +19,15 @@ All components work in tandem to achieve the expected data processing for an end
 This hopefully demonstrates my ability to identify where certain solutions at my disposal may be better suited, or should at least be considered, based on the task and expected outcome at hand — rather than just defaulting to programmatic, declarative, or relying on pre-existing (and in some cases non-efficient methods)
 
 Solution Components Developed:
+
 2 Apex Triggers (1 Trigger per Object for Loan__c and Loan_Charge__c)
+
 4 Apex Classes (1 HelperClasses per Triggers & 1 Test Class per HelperClass)
+
 1 Flow (Handles Bonus Requirement Function)
+
 2 Custom Objects 
+
 11 Custom Fields (7 for Loan__c, 4 for Loan_Charge__c)
 
 There are some additional components included in this repository such as Page Layouts and even some Field Validation Rules, however, these are more for QoL than anything. The overall function's requirements (both minimum & bonus) are fully handled within the aforementioned elements.
