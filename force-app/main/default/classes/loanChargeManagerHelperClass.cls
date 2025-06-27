@@ -5,7 +5,16 @@ public class loanChargeManagerHelperClass {
     Public List<Loan_Charge__c> adminFeeLoanCharges = new List<Loan_Charge__c>();
     Public List<Loan_Charge__c> existingChargesToAmend = new List<Loan_Charge__c>();
     
-    
+    /*
+* Method Purpose: 
+*	Intercept and store all individual LoanCharges into their own respective Lists for later processesing in manageLoanCharges() & updateLoanCharges() Method 
+* 
+* Parameters:
+*	List Loan_Charge__c: Trigger.new Value(s) parsed via loanChargeManager.apxt
+* 
+* Return: 
+* 	N/A
+*/
     public void interceptLoanCharges(List<Loan_Charge__c> loanCharges){
         if(loanCharges == null || loanCharges.isEmpty()){
             System.debug('interceptLoanCharges Method has exited early as there were no Loans Found when the Method was invoked. Please ensure a Record or List of Records is passed into the Method call.');
@@ -40,6 +49,19 @@ public class loanChargeManagerHelperClass {
         }
     }
     
+    /*
+* Method Purpose: 
+* 	Retrieve and compile all individual Loan Charges found from interceptLoanCharges() Method,
+* 	Detect and associate the Loan corresponding to each Charge,
+* 	Relate that Loan & the most recent Charge Date for each child Loan Charge in the furthestDatePerLoan Map
+* 	Compare the most recent Charge Date for each child Loan Charge against the corresponding Release Charge relating & determine whether it needs it's Charge Date to be amended by +1
+*
+* Parameters:
+* 	N/A
+*
+* Return: 
+* 	N/A
+*/ 
     public void manageLoanCharges(){
         
         Map<Id, Date> furthestDatePerLoan = new Map<Id, Date>(); // LoanId -> Latest non-'release charge' date
@@ -75,6 +97,16 @@ public class loanChargeManagerHelperClass {
         }
     }
     
+    /*
+* Method Purpose: 
+*	Attempt to update the required Release Charge Loan Charges (+1 to Charge Date) 
+*
+* Parameters:
+*	List Loan_Charge__c: existingChargesToAmend parsed via loanChargeManager.apxt (Loan Charges to Update) 
+*
+* Return: 
+*	N/A
+*/ 
     public void updateLoanCharges(List<Loan_Charge__c> toUpdate){
         try{
             system.debug('Loan Charges before Records held in the list are Updated: ' + toUpdate);

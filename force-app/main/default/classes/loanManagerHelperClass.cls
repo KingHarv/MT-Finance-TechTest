@@ -7,13 +7,32 @@ public class loanManagerHelperClass {
     Public List<Loan_Charge__c> relatedLoanCharges = new List<Loan_Charge__c>();
     Public List<Loan_Charge__c> releaseLoanChargesToCreate = new List<Loan_Charge__c>();
     
-    
+    /*
+* Method Purpose: 
+*	Intercept and store all individual Loans into their own List for later processesing in assessLoans() & insertLoanCharges() Method  
+*
+* Parameters:
+*	List Loan__c: Trigger.new Value(s) parsed via loanManager.apxt
+*
+* Return: 
+*	N/A
+*/    
     public void interceptLoans(List<Loan__c> loans){  
         For (Loan__c iteratingLoans : Loans){
             triggeringLoans.add(iteratingLoans);
         }
     }
     
+    /*
+* Method Purpose: 
+*	Determine/Assess if a Release Charge must be created alongside the Loan which is being created
+*
+* Parameters:
+*	List Loan__c: triggeringLoans parsed via loanManager.apxt
+*
+* Return: 
+*	N/A
+*/    
     public void assessLoans(List<Loan__c> triggeringLoansFound){
         
         if(triggeringLoansFound == null || triggeringLoansFound.isempty()){
@@ -40,6 +59,17 @@ public class loanManagerHelperClass {
     }
     
     
+    /*
+* Method Purpose: 
+*	Intake and process Release Charges to be created per associated Loan 
+*	This is a result of the processing AND assessment carried out in interceptLoans() & assessLoans()
+*
+* Parameters:
+*	List Loan__c: loansWithoutExistingReleaseCharge parsed via loanManager.apxt
+*
+* Return: 
+*	N/A
+*/     
     public void prepareLoanCharges(List<Loan__c> noExistingReleaseChargeLoans){
         
         system.debug('noExistingReleaseChargeLoans: ' + noExistingReleaseChargeLoans);
@@ -55,7 +85,16 @@ public class loanManagerHelperClass {
         }
     }
     
-    
+    /*
+* Method Purpose: 
+*	Attempt to Insert all necessary Release Charges per Loan 
+*
+* Parameters:
+*	List Loan__c: releaseLoanChargesToCreate parsed via loanManager.apxt
+*
+* Return: 
+*	N/A
+*/   
     public void insertLoanCharges(List<Loan_Charge__c> toInsert){
         try{
             insert toInsert;
