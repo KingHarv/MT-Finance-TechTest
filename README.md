@@ -52,7 +52,7 @@ Bonus logic says that when Term__c is modified, an Admin Fee must be added with 
 (If it's expected that this function ONLY be present on an insertion of a non-release-charge Loan Charge, then this functionality has been achieved, however, I have considered that the desire to have a Release Charge constantly being the latest Charge Date item for new Records should then likely extend against all existing records — not just insertions.)
 
 Issue:
-When both rules operate at once, it *can* create a feedback loop in high-volume orgs — where each new charge forces updates to the Release Charge, triggering excessive record edits and CPU time usage (larger the org, larger the processing, larger the likelyhood of hitting governance limits and thus optimization is key). Consider that existing records can also cause the amende Release Charge's Date to land on another Loan Charge where the Date is the same — repeating the cycle.
+When both rules operate at once, it *can* create a feedback loop in high-volume orgs — where each new charge forces updates to the Release Charge, triggering excessive record edits and CPU time usage (larger the org, larger the processing, larger the likelyhood of hitting governance limits and thus optimization is key). Consider that existing records can also cause the amended Release Charge's Date to land on another Loan Charge where the Date is the same — repeating the cycle.
 
 Workaround Implemented:
 I opted to only apply the one-month extension for the first instance of a Charge Date conflict. This demonstrates the function and sound logic behind it, especially for the scale presumed to be deployed in, but still must be aware of potential limitations.
@@ -88,15 +88,15 @@ Switch from using Date to DateTime fields & introduce Field History Tracking as 
 
 ### Why This Matters:
 
-In large-scale orgs with many Loan Charges per customer and overlapping dates, it's important to prevent inefficient processing. Applying conditional logic to extend the Release Charge only when necessary makes sure we don't rack up CPU load time and also avoids infinite loops.
-This design was built purely within the context of the task given, but for larger scale orgs prone to governance limits due to their scale, having the Release Charge date updated based on custom logic against a MAX summary field, ensuring the Release Charge is always safely in the future would be much a more robust soluton that I'd choose to implement.
-Again, while the logic for backdating the Admin Fee, and the rest of the functions, is perfectly sound and robust for this schema, in a more complex or uncontrolled environment you should consider to preserve both data accuracy and user clarity via something like the new fields and history tracking that I suggested, or different logical & processing approaches like the MAX Roll-Up value.
+In large-scale orgs with many Loan Charges per customer and overlapping dates, it's important to prevent inefficient processing. Things like only applying extra logic to extend the Release Charge's date against existing records should only be implemented when absolutely necessary (as per the businesses request for expected function) as otherwise this creates a secnario where we rack up CPU load time for non-essential reasons.
+The design arrived at was built purely for and within the presumed context of the task given. For larger scale orgs, making them especially prone to governance limits, things like having the Release Charge date be updated based on custom logic against a MAX summary field would ensure the Release Charge is always safely in the future (satisfying business criteria) and would also be much a more robust soluton (satisfying developer critiera) to implement.
+Again, while the logic for backdating the Admin Fee, and the rest of the functions within this task, are perfectly sound and robust for this schema, in a more complex or uncontrolled environment you should consider options which preserve both data accuracy and user clarity. In this context, you could achieve this via a similar proposal to my earlier suggestions; new fields and history tracking, or different logical & processing approaches such as creating and utilizing the MAX Roll-Up value. This not only creates a scalable development solution for devs to revisit and build ontop of, but will also provide end-users with a level of understanding of the function 'behind the scenes' and better understand the key points which play into this function (while not necessary, can be useful).
 
-Any expected outcomes arrived at time of submission (that i'm aware of) have been achieved intentionally and treated as explicit exceptions based on the face value of the request at hand. With additional business context, the final solution might differ depending on what is or isn’t acceptable operationally.
+Any actual outcomes returned during testing at the time of submission (that i'm aware of) have been achieved intentionally and any such deviations from expected outcomes in line with the above detail have been treated as explicit exceptions based on the face value of the request at hand. With additional business context or information, the final solution may differ depending on what is or isn’t acceptable —  operationally, or technically.
 
 I hope this has been informative and that the solution provided meets your expected standards.
 
-Happy to discuss further around any points or details.
+Happy to discuss further around any points, details, or questions!
 
 Thank you again, and I look forward to hearing your feedback!!!
 
